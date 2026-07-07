@@ -1,5 +1,5 @@
 /* ============================================================
-   Resume Builder — Minimal Professional Styling
+   Resume Builder — Modern UI with Multi-Theme Support
    ============================================================ */
 
 /* ── Reset ─────────────────────────────────────────────── */
@@ -11,272 +11,591 @@
   box-sizing: border-box;
 }
 
-/* ── Base ──────────────────────────────────────────────── */
-:root {
-  --accent:        #1a4d8f;
-  --accent-light:  #e8f0fa;
-  --border:        #d0d7de;
-  --text:          #1f2328;
-  --text-muted:    #57606a;
-  --bg:            #f6f8fa;
-  --white:         #ffffff;
-  --radius:        6px;
-  --shadow:        0 1px 3px rgba(0,0,0,.12);
+/* ── Theme Definitions ────────────────────────────────── */
+:root,
+[data-theme="ocean"] {
+  --accent:        #0ea5e9;
+  --accent-2:      #0369a1;
+  --accent-soft:   #e0f2fe;
+  --accent-grad:   linear-gradient(135deg, #0ea5e9, #6366f1);
+  --bg:            #f1f5f9;
+  --surface:       #ffffff;
+  --text:          #0f172a;
+  --text-muted:    #64748b;
+  --border:        #e2e8f0;
+  --danger:        #ef4444;
+  --success:       #22c55e;
+  --radius:        10px;
+  --radius-sm:     6px;
+  --shadow-sm:     0 1px 2px rgba(0,0,0,.04);
+  --shadow:        0 4px 16px rgba(15,23,42,.06);
+  --shadow-lg:     0 12px 40px rgba(15,23,42,.1);
+  --topbar-grad:   linear-gradient(135deg, #0ea5e9, #6366f1);
 }
 
+[data-theme="sunset"] {
+  --accent:        #f97316;
+  --accent-2:      #c2410c;
+  --accent-soft:   #ffedd5;
+  --accent-grad:   linear-gradient(135deg, #f97316, #ec4899);
+  --bg:            #fff7ed;
+  --surface:       #ffffff;
+  --text:          #1c1917;
+  --text-muted:    #78716c;
+  --border:        #fed7aa;
+  --shadow:        0 4px 16px rgba(28,25,23,.06);
+  --shadow-lg:     0 12px 40px rgba(28,25,23,.1);
+  --topbar-grad:   linear-gradient(135deg, #f97316, #ec4899);
+}
+
+[data-theme="forest"] {
+  --accent:        #059669;
+  --accent-2:      #047857;
+  --accent-soft:   #d1fae5;
+  --accent-grad:   linear-gradient(135deg, #059669, #14b8a6);
+  --bg:            #f0fdf4;
+  --surface:       #ffffff;
+  --text:          #064e3b;
+  --text-muted:    #4b5563;
+  --border:        #bbf7d0;
+  --shadow:        0 4px 16px rgba(6,78,59,.06);
+  --shadow-lg:     0 12px 40px rgba(6,78,59,.1);
+  --topbar-grad:   linear-gradient(135deg, #059669, #14b8a6);
+}
+
+[data-theme="slate"] {
+  --accent:        #64748b;
+  --accent-2:      #334155;
+  --accent-soft:   #f1f5f9;
+  --accent-grad:   linear-gradient(135deg, #475569, #1e293b);
+  --bg:            #f8fafc;
+  --surface:       #ffffff;
+  --text:          #1e293b;
+  --text-muted:    #64748b;
+  --border:        #cbd5e1;
+  --shadow:        0 4px 16px rgba(30,41,59,.06);
+  --shadow-lg:     0 12px 40px rgba(30,41,59,.1);
+  --topbar-grad:   linear-gradient(135deg, #475569, #1e293b);
+}
+
+[data-theme="mono"] {
+  --accent:        #1f2937;
+  --accent-2:      #111827;
+  --accent-soft:   #f3f4f6;
+  --accent-grad:   linear-gradient(135deg, #374151, #111827);
+  --bg:            #fafafa;
+  --surface:       #ffffff;
+  --text:          #18181b;
+  --text-muted:    #71717a;
+  --border:        #e4e4e7;
+  --shadow:        0 4px 16px rgba(0,0,0,.05);
+  --shadow-lg:     0 12px 40px rgba(0,0,0,.08);
+  --topbar-grad:   linear-gradient(135deg, #374151, #18181b);
+}
+
+/* ── Base ──────────────────────────────────────────────── */
 body {
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Header ────────────────────────────────────────────── */
-.app-header {
-  text-align: center;
-  padding: 1.5rem 1rem .75rem;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
+/* ── Topbar ────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 2rem;
+  background: var(--topbar-grad);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,.12);
 }
 
-.app-header h1 {
-  font-size: 1.75rem;
-  color: var(--accent);
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
 }
 
-.subtitle {
-  color: var(--text-muted);
-  font-size: .9rem;
+.brand-mark {
+  font-size: 1.7rem;
+  opacity: .9;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
 }
+
+.brand h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.brand-sub {
+  font-size: .8rem;
+  opacity: .85;
+  font-weight: 400;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Theme switcher */
+.theme-switcher {
+  display: flex;
+  gap: .35rem;
+  padding: .35rem .5rem;
+  background: rgba(255,255,255,.15);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+
+.theme-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.6);
+  cursor: pointer;
+  transition: transform .15s, border-color .15s;
+  padding: 0;
+}
+
+.theme-dot:hover { transform: scale(1.18); }
+.theme-dot.active {
+  border-color: #fff;
+  transform: scale(1.18);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.4);
+}
+
+.theme-dot[data-theme="ocean"]  { background: linear-gradient(135deg, #0ea5e9, #6366f1); }
+.theme-dot[data-theme="sunset"] { background: linear-gradient(135deg, #f97316, #ec4899); }
+.theme-dot[data-theme="forest"] { background: linear-gradient(135deg, #059669, #14b8a6); }
+.theme-dot[data-theme="slate"]  { background: linear-gradient(135deg, #475569, #1e293b); }
+.theme-dot[data-theme="mono"]   { background: linear-gradient(135deg, #374151, #111827); }
 
 /* ── Toolbar ───────────────────────────────────────────── */
 .toolbar {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: var(--white);
+  align-items: center;
+  gap: .65rem;
+  padding: .85rem 2rem;
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
+.toolbar-spacer { flex: 1; }
+
+.save-status {
+  font-size: .8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.save-status.visible { opacity: 1; }
+
+/* ── Buttons ───────────────────────────────────────────── */
 .btn {
-  padding: .6rem 1.5rem;
+  padding: .55rem 1.2rem;
   border: none;
-  border-radius: var(--radius);
-  font-size: .95rem;
+  border-radius: var(--radius-sm);
+  font-size: .85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity .15s, transform .1s;
+  transition: opacity .15s, transform .1s, box-shadow .15s;
+  white-space: nowrap;
 }
 
-.btn:active { transform: scale(.97); }
-.btn:hover { opacity: .88; }
+.btn:active  { transform: scale(.96); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
 
-.btn-pdf  { background: #d93025; color: #fff; }
-.btn-docx { background: #2b7cd3; color: #fff; }
+.btn-pdf {
+  background: var(--danger);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(239,68,68,.3);
+}
+.btn-pdf:hover { box-shadow: 0 4px 14px rgba(239,68,68,.4); }
+
+.btn-docx {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(14,165,233,.25);
+}
+.btn-docx:hover { box-shadow: 0 4px 14px rgba(14,165,233,.35); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  padding: .45rem 1rem;
+  margin-top: .5rem;
+  font-size: .82rem;
+}
+.btn-add:hover {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* ── Grid Layout ───────────────────────────────────────── */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  max-width: 1400px;
-  margin: 1.5rem auto;
-  padding: 0 1.5rem;
+  max-width: 1500px;
+  margin: 1.5rem auto 3rem;
+  padding: 0 2rem;
 }
 
 /* ── Form Panel ────────────────────────────────────────── */
 .form-panel {
-  background: var(--white);
+  background: transparent;
+}
+
+.preview-panel {
+  position: sticky;
+  top: 72px;
+  align-self: start;
+}
+
+/* ── Card / Fieldset ───────────────────────────────────── */
+.card {
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.25rem;
   box-shadow: var(--shadow);
 }
 
-.form-panel h2,
-.preview-panel h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: var(--accent);
-}
-
-fieldset {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1rem;
-  margin-bottom: 1.25rem;
-}
-
 legend {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--accent);
-  padding: 0 .4rem;
-  font-size: .95rem;
+  font-size: .9rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: .85rem;
+  display: block;
+}
+
+/* ── Fields ────────────────────────────────────────────── */
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-  display: block;
-  margin: .6rem 0 .2rem;
-  font-size: .85rem;
+  font-size: .78rem;
   font-weight: 600;
   color: var(--text-muted);
+  margin-bottom: .3rem;
+  letter-spacing: .01em;
 }
+
+.req { color: var(--danger); }
 
 input[type="text"],
 input[type="email"],
+input[type="tel"],
+input[type="url"],
 textarea {
   width: 100%;
-  padding: .5rem .65rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: .9rem;
+  padding: .55rem .75rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: .88rem;
   font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
   resize: vertical;
+  transition: border-color .15s, box-shadow .15s;
 }
 
 input:focus,
 textarea:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: -1px;
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
-.hint {
-  font-size: .78rem;
-  color: var(--text-muted);
-  margin-bottom: .4rem;
+input.invalid,
+textarea.invalid {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239,68,68,.1);
 }
 
-.hint code {
+.err {
+  font-size: .75rem;
+  color: var(--danger);
+  margin-top: .2rem;
+  min-height: 1em;
+}
+
+/* ── Dynamic Entry Cards ──────────────────────────────── */
+.entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+  margin-bottom: .5rem;
+}
+
+.entry-card {
   background: var(--bg);
-  padding: .1rem .3rem;
-  border-radius: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  position: relative;
+  animation: slideIn .2s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.entry-card .field-grid {
+  margin-bottom: .5rem;
+}
+
+.entry-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-remove {
+  background: transparent;
+  border: none;
+  color: var(--danger);
   font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: .25rem .5rem;
+  border-radius: var(--radius-sm);
+  transition: background .15s;
+}
+.btn-remove:hover {
+  background: rgba(239,68,68,.1);
 }
 
 /* ── Preview Panel ─────────────────────────────────────── */
-.preview-panel {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
+.preview-head {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-bottom: .85rem;
 }
 
-/* The "paper" that looks like a printed resume */
-.resume-paper {
-  background: var(--white);
-  padding: 2rem 2.5rem;
-  min-height: 600px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  font-size: .9rem;
-  line-height: 1.6;
-}
-
-/* ── Resume Typography (preview + PDF target) ──────────── */
-.resume-paper .rp-name {
-  font-size: 1.6rem;
+.preview-head h2 {
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: .1rem;
 }
 
-.resume-paper .rp-title {
-  font-size: 1.05rem;
+.preview-badge {
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: .2rem .55rem;
+  border-radius: 999px;
+}
+
+.resume-paper {
+  background: var(--surface);
+  padding: 2.5rem;
+  min-height: 600px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  font-size: .9rem;
+  line-height: 1.65;
+  border: 1px solid var(--border);
+}
+
+/* ── Resume Typography ─────────────────────────────────── */
+.rp-header {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 2.5px solid var(--accent-soft);
+}
+
+.rp-name {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--text);
+  margin-bottom: .15rem;
+}
+
+.rp-title {
+  font-size: 1.1rem;
   color: var(--accent);
   font-weight: 600;
   margin-bottom: .5rem;
 }
 
-.resume-paper .rp-contact {
+.rp-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem .8rem;
   font-size: .82rem;
   color: var(--text-muted);
-  margin-bottom: 1rem;
 }
 
-.resume-paper .rp-contact span {
-  margin-right: .6rem;
+.rp-contact span {
+  display: inline-flex;
+  align-items: center;
 }
 
-.resume-paper .rp-contact span::after {
+.rp-contact span:not(:last-child)::after {
   content: "•";
-  margin-left: .6rem;
-}
-
-.resume-paper .rp-contact span:last-child::after {
-  content: "";
+  margin-left: .8rem;
+  color: var(--border);
 }
 
 .resume-paper h3 {
-  font-size: .95rem;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  color: var(--accent);
-  border-bottom: 2px solid var(--accent-light);
-  padding-bottom: .2rem;
-  margin: 1.25rem 0 .6rem;
-}
-
-.resume-paper .rp-summary {
-  margin-bottom: .5rem;
-}
-
-.resume-paper .rp-exp-item {
-  margin-bottom: .75rem;
-}
-
-.resume-paper .rp-exp-header {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 600;
-}
-
-.resume-paper .rp-exp-role {
-  color: var(--text);
-}
-
-.resume-paper .rp-exp-company {
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-.resume-paper .rp-exp-desc {
   font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent-soft);
+  padding-bottom: .25rem;
+  margin: 1.4rem 0 .65rem;
+  font-weight: 700;
+}
+
+.rp-summary {
+  margin-bottom: .25rem;
   color: var(--text);
 }
 
-.resume-paper .rp-edu-item {
-  margin-bottom: .4rem;
+.rp-exp-item {
+  margin-bottom: .85rem;
 }
 
-.resume-paper .rp-edu-header {
+.rp-exp-header {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+  gap: .5rem;
 }
 
-.resume-paper .rp-skills {
+.rp-exp-role {
+  font-weight: 700;
+  color: var(--text);
+  font-size: .92rem;
+}
+
+.rp-exp-company {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: .85rem;
+}
+
+.rp-exp-date {
+  font-size: .78rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.rp-exp-desc {
+  font-size: .85rem;
+  color: var(--text-muted);
+  margin-top: .15rem;
+}
+
+.rp-edu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: .4rem;
+  font-size: .88rem;
+}
+
+.rp-edu-degree {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.rp-edu-school {
+  color: var(--accent);
+}
+
+.rp-edu-year {
+  font-size: .8rem;
+  color: var(--text-muted);
+}
+
+.rp-skills {
   display: flex;
   flex-wrap: wrap;
   gap: .4rem;
 }
 
-.resume-paper .rp-skill-tag {
-  background: var(--accent-light);
-  color: var(--accent);
-  padding: .2rem .6rem;
-  border-radius: 12px;
-  font-size: .8rem;
+.rp-skill-tag {
+  background: var(--accent-soft);
+  color: var(--accent-2);
+  padding: .25rem .7rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
 }
 
-.resume-paper .rp-placeholder {
+.rp-placeholder {
   color: #aab2bc;
   font-style: italic;
+  text-align: center;
+  padding: 3rem 0;
+  font-size: .9rem;
 }
 
 /* ── Responsive ────────────────────────────────────────── */
-@media (max-width: 860px) {
+@media (max-width: 960px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+  .preview-panel {
+    position: static;
+  }
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+  .topbar {
+    flex-direction: column;
+    gap: .75rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  .toolbar {
+    flex-wrap: wrap;
+    padding: .75rem 1rem;
   }
 }

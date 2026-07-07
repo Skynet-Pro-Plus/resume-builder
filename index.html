@@ -1,101 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="ocean">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resume Builder</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 <body>
 
-  <!-- ─── Header ──────────────────────────────────────────── -->
-  <header class="app-header">
-    <h1>📄 Resume Builder</h1>
-    <p class="subtitle">Fill out the form — preview updates live.</p>
+  <!-- ─── Top Bar ──────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">✦</span>
+      <div>
+        <h1>Resume Builder</h1>
+        <p class="brand-sub">Craft a polished resume in minutes</p>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <!-- Theme switcher -->
+      <div class="theme-switcher" role="group" aria-label="Theme">
+        <button class="theme-dot" data-theme="ocean"   title="Ocean"></button>
+        <button class="theme-dot" data-theme="sunset"  title="Sunset"></button>
+        <button class="theme-dot" data-theme="forest"  title="Forest"></button>
+        <button class="theme-dot" data-theme="slate"   title="Slate"></button>
+        <button class="theme-dot" data-theme="mono"    title="Mono"></button>
+      </div>
+    </div>
   </header>
 
-  <!-- ─── Toolbar ─────────────────────────────────────────── -->
+  <!-- ─── Toolbar ──────────────────────────────────────── -->
   <div class="toolbar">
-    <button id="exportPdfBtn" class="btn btn-pdf">📄 Export PDF</button>
-    <button id="exportDocxBtn" class="btn btn-docx">📄 Export DOCX</button>
+    <button id="loadSampleBtn" class="btn btn-ghost">✨ Load Sample</button>
+    <button id="clearBtn"      class="btn btn-ghost">🗑 Clear All</button>
+    <span class="toolbar-spacer"></span>
+    <span id="saveStatus" class="save-status" aria-live="polite"></span>
+    <button id="exportPdfBtn"  class="btn btn-pdf">⤓ PDF</button>
+    <button id="exportDocxBtn" class="btn btn-docx">⤓ DOCX</button>
   </div>
 
-  <!-- ─── Main Grid ───────────────────────────────────────── -->
+  <!-- ─── Main Grid ────────────────────────────────────── -->
   <main class="grid">
 
-    <!-- ────────── Left: Form ────────── -->
+    <!-- ────── Left: Form ────── -->
     <section class="form-panel">
-      <h2>Form</h2>
+      <form id="resumeForm" novalidate>
 
-      <!-- Personal -->
-      <fieldset>
-        <legend>Personal Information</legend>
+        <!-- Personal -->
+        <fieldset class="card">
+          <legend>Personal Information</legend>
+          <div class="field-grid">
+            <div class="field">
+              <label for="fullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="fullName" data-persist placeholder="Jane Smith" required>
+              <span class="err" data-err="fullName"></span>
+            </div>
+            <div class="field">
+              <label for="jobTitle">Job Title <span class="req">*</span></label>
+              <input type="text" id="jobTitle" data-persist placeholder="Senior Software Engineer" required>
+              <span class="err" data-err="jobTitle"></span>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input type="email" id="email" data-persist placeholder="jane@email.com" required>
+              <span class="err" data-err="email"></span>
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" data-persist placeholder="(608) 751-6459">
+            </div>
+            <div class="field">
+              <label for="location">Location</label>
+              <input type="text" id="location" data-persist placeholder="Madison, WI">
+            </div>
+            <div class="field">
+              <label for="website">Website / LinkedIn</label>
+              <input type="url" id="website" data-persist placeholder="linkedin.com/in/janesmith">
+            </div>
+          </div>
+        </fieldset>
 
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" placeholder="Jane Smith">
+        <!-- Summary -->
+        <fieldset class="card">
+          <legend>Professional Summary</legend>
+          <div class="field">
+            <textarea id="summary" data-persist rows="4" placeholder="A brief paragraph describing your professional background, key strengths, and career goals."></textarea>
+          </div>
+        </fieldset>
 
-        <label for="jobTitle">Job Title</label>
-        <input type="text" id="jobTitle" placeholder="Senior Software Engineer">
+        <!-- Experience (dynamic) -->
+        <fieldset class="card">
+          <legend>Work Experience</legend>
+          <div id="experienceList" class="entry-list"><!-- entries injected here --></div>
+          <button type="button" class="btn btn-add" id="addExperienceBtn">＋ Add Experience</button>
+        </fieldset>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="jane@email.com">
+        <!-- Education (dynamic) -->
+        <fieldset class="card">
+          <legend>Education</legend>
+          <div id="educationList" class="entry-list"><!-- entries injected here --></div>
+          <button type="button" class="btn btn-add" id="addEducationBtn">＋ Add Education</button>
+        </fieldset>
 
-        <label for="phone">Phone</label>
-        <input type="text" id="phone" placeholder="(608) 751-6459">
+        <!-- Skills -->
+        <fieldset class="card">
+          <legend>Skills</legend>
+          <div class="field">
+            <label for="skills">Comma-separated list</label>
+            <input type="text" id="skills" data-persist placeholder="JavaScript, Python, SQL, React, Docker, AWS">
+          </div>
+        </fieldset>
 
-        <label for="location">Location</label>
-        <input type="text" id="location" placeholder="Madison, WI">
-
-        <label for="website">Website / LinkedIn</label>
-        <input type="text" id="website" placeholder="linkedin.com/in/janesmith">
-      </fieldset>
-
-      <!-- Summary -->
-      <fieldset>
-        <legend>Professional Summary</legend>
-        <textarea id="summary" rows="4" placeholder="Brief paragraph describing your professional background, strengths, and goals."></textarea>
-      </fieldset>
-
-      <!-- Experience -->
-      <fieldset>
-        <legend>Work Experience</legend>
-        <p class="hint">One entry per line, pipe-separated:<br>
-          <code>Company | Role | Start – End | Description</code></p>
-        <textarea id="experience" rows="5" placeholder="Acme Corp | Software Engineer | 2020 – Present | Built scalable web apps using React and Node.js.&#10;Beta LLC | Junior Dev | 2018 – 2020 | Maintained legacy PHP backend and internal tools."></textarea>
-      </fieldset>
-
-      <!-- Education -->
-      <fieldset>
-        <legend>Education</legend>
-        <p class="hint">One entry per line, pipe-separated:<br>
-          <code>School | Degree | Year</code></p>
-        <textarea id="education" rows="3" placeholder="UW-Madison | B.S. Computer Science | 2018"></textarea>
-      </fieldset>
-
-      <!-- Skills -->
-      <fieldset>
-        <legend>Skills</legend>
-        <p class="hint">Comma-separated</p>
-        <input type="text" id="skills" placeholder="JavaScript, Python, SQL, React, Docker">
-      </fieldset>
+      </form>
     </section>
 
-    <!-- ────────── Right: Preview ────────── -->
+    <!-- ────── Right: Preview ────── -->
     <section class="preview-panel">
-      <h2>Live Preview</h2>
-      <div id="resumePreview" class="resume-paper">
-        <!-- rendered by script.js -->
+      <div class="preview-head">
+        <h2>Live Preview</h2>
+        <span class="preview-badge">Updates instantly</span>
       </div>
+      <div id="resumePreview" class="resume-paper"></div>
     </section>
 
   </main>
 
-  <!-- ─── CDN Libraries ───────────────────────────────────── -->
+  <!-- ─── CDN Libraries ─────────────────────────────────── -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://unpkg.com/docx@8.5.0/build/index.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-  <!-- ─── App Script ──────────────────────────────────────── -->
+  <!-- ─── App Script ────────────────────────────────────── -->
   <script src="script.js"></script>
 </body>
 </html>
