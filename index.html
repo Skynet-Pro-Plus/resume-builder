@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Builder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ─── Header ──────────────────────────────────────────── -->
+  <header class="app-header">
+    <h1>📄 Resume Builder</h1>
+    <p class="subtitle">Fill out the form — preview updates live.</p>
+  </header>
+
+  <!-- ─── Toolbar ─────────────────────────────────────────── -->
+  <div class="toolbar">
+    <button id="exportPdfBtn" class="btn btn-pdf">📄 Export PDF</button>
+    <button id="exportDocxBtn" class="btn btn-docx">📄 Export DOCX</button>
+  </div>
+
+  <!-- ─── Main Grid ───────────────────────────────────────── -->
+  <main class="grid">
+
+    <!-- ────────── Left: Form ────────── -->
+    <section class="form-panel">
+      <h2>Form</h2>
+
+      <!-- Personal -->
+      <fieldset>
+        <legend>Personal Information</legend>
+
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Jane Smith">
+
+        <label for="jobTitle">Job Title</label>
+        <input type="text" id="jobTitle" placeholder="Senior Software Engineer">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="jane@email.com">
+
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" placeholder="(608) 751-6459">
+
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="Madison, WI">
+
+        <label for="website">Website / LinkedIn</label>
+        <input type="text" id="website" placeholder="linkedin.com/in/janesmith">
+      </fieldset>
+
+      <!-- Summary -->
+      <fieldset>
+        <legend>Professional Summary</legend>
+        <textarea id="summary" rows="4" placeholder="Brief paragraph describing your professional background, strengths, and goals."></textarea>
+      </fieldset>
+
+      <!-- Experience -->
+      <fieldset>
+        <legend>Work Experience</legend>
+        <p class="hint">One entry per line, pipe-separated:<br>
+          <code>Company | Role | Start – End | Description</code></p>
+        <textarea id="experience" rows="5" placeholder="Acme Corp | Software Engineer | 2020 – Present | Built scalable web apps using React and Node.js.&#10;Beta LLC | Junior Dev | 2018 – 2020 | Maintained legacy PHP backend and internal tools."></textarea>
+      </fieldset>
+
+      <!-- Education -->
+      <fieldset>
+        <legend>Education</legend>
+        <p class="hint">One entry per line, pipe-separated:<br>
+          <code>School | Degree | Year</code></p>
+        <textarea id="education" rows="3" placeholder="UW-Madison | B.S. Computer Science | 2018"></textarea>
+      </fieldset>
+
+      <!-- Skills -->
+      <fieldset>
+        <legend>Skills</legend>
+        <p class="hint">Comma-separated</p>
+        <input type="text" id="skills" placeholder="JavaScript, Python, SQL, React, Docker">
+      </fieldset>
+    </section>
+
+    <!-- ────────── Right: Preview ────────── -->
+    <section class="preview-panel">
+      <h2>Live Preview</h2>
+      <div id="resumePreview" class="resume-paper">
+        <!-- rendered by script.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── CDN Libraries ───────────────────────────────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  <!-- ─── App Script ──────────────────────────────────────── -->
+  <script src="script.js"></script>
+</body>
+</html>

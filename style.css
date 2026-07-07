@@ -1,0 +1,282 @@
+/* ============================================================
+   Resume Builder — Minimal Professional Styling
+   ============================================================ */
+
+/* ── Reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Base ──────────────────────────────────────────────── */
+:root {
+  --accent:        #1a4d8f;
+  --accent-light:  #e8f0fa;
+  --border:        #d0d7de;
+  --text:          #1f2328;
+  --text-muted:    #57606a;
+  --bg:            #f6f8fa;
+  --white:         #ffffff;
+  --radius:        6px;
+  --shadow:        0 1px 3px rgba(0,0,0,.12);
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* ── Header ────────────────────────────────────────────── */
+.app-header {
+  text-align: center;
+  padding: 1.5rem 1rem .75rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-header h1 {
+  font-size: 1.75rem;
+  color: var(--accent);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: .9rem;
+}
+
+/* ── Toolbar ───────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.btn {
+  padding: .6rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .15s, transform .1s;
+}
+
+.btn:active { transform: scale(.97); }
+.btn:hover { opacity: .88; }
+
+.btn-pdf  { background: #d93025; color: #fff; }
+.btn-docx { background: #2b7cd3; color: #fff; }
+
+/* ── Grid Layout ───────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Form Panel ────────────────────────────────────────── */
+.form-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.form-panel h2,
+.preview-panel h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+legend {
+  font-weight: 600;
+  color: var(--accent);
+  padding: 0 .4rem;
+  font-size: .95rem;
+}
+
+label {
+  display: block;
+  margin: .6rem 0 .2rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: .5rem .65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: .9rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.hint {
+  font-size: .78rem;
+  color: var(--text-muted);
+  margin-bottom: .4rem;
+}
+
+.hint code {
+  background: var(--bg);
+  padding: .1rem .3rem;
+  border-radius: 3px;
+  font-size: .78rem;
+}
+
+/* ── Preview Panel ─────────────────────────────────────── */
+.preview-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+/* The "paper" that looks like a printed resume */
+.resume-paper {
+  background: var(--white);
+  padding: 2rem 2.5rem;
+  min-height: 600px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+/* ── Resume Typography (preview + PDF target) ──────────── */
+.resume-paper .rp-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: .1rem;
+}
+
+.resume-paper .rp-title {
+  font-size: 1.05rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: .5rem;
+}
+
+.resume-paper .rp-contact {
+  font-size: .82rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.resume-paper .rp-contact span {
+  margin-right: .6rem;
+}
+
+.resume-paper .rp-contact span::after {
+  content: "•";
+  margin-left: .6rem;
+}
+
+.resume-paper .rp-contact span:last-child::after {
+  content: "";
+}
+
+.resume-paper h3 {
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent-light);
+  padding-bottom: .2rem;
+  margin: 1.25rem 0 .6rem;
+}
+
+.resume-paper .rp-summary {
+  margin-bottom: .5rem;
+}
+
+.resume-paper .rp-exp-item {
+  margin-bottom: .75rem;
+}
+
+.resume-paper .rp-exp-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.resume-paper .rp-exp-role {
+  color: var(--text);
+}
+
+.resume-paper .rp-exp-company {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.resume-paper .rp-exp-desc {
+  font-size: .85rem;
+  color: var(--text);
+}
+
+.resume-paper .rp-edu-item {
+  margin-bottom: .4rem;
+}
+
+.resume-paper .rp-edu-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.resume-paper .rp-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.resume-paper .rp-skill-tag {
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: .2rem .6rem;
+  border-radius: 12px;
+  font-size: .8rem;
+}
+
+.resume-paper .rp-placeholder {
+  color: #aab2bc;
+  font-style: italic;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
