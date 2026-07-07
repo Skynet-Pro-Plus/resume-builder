@@ -408,15 +408,74 @@
   }
 
   /* ============================================================
+     TOAST NOTIFICATIONS
+     ============================================================ */
+
+  var toastContainer = document.getElementById("toastContainer");
+
+  function showToast(message, type) {
+    type = type || "info";
+    if (!toastContainer) return;
+
+    var toast = document.createElement("div");
+    toast.className = "rp-toast rp-toast-" + type;
+    toast.textContent = message;
+    toastContainer.appendChild(toast);
+
+    // Trigger entrance animation
+    requestAnimationFrame(function () {
+      toast.classList.add("rp-toast-show");
+    });
+
+    // Auto-dismiss after 4 seconds
+    setTimeout(function () {
+      toast.classList.remove("rp-toast-show");
+      setTimeout(function () {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }, 4000);
+  }
+
+  /* ============================================================
+     EXPORT VALIDATION
+     ============================================================ */
+
+  function validateExportTemplate() {
+    // Ensure the preview has actual content to export
+    if (!els.preview || !els.preview.innerHTML.trim()) {
+      return { valid: false, message: "Nothing to export — fill in some content first." };
+    }
+    var d = getPersonal();
+    if (!d.fullName && !d.jobTitle) {
+      return { valid: false, message: "Please add at least a name and job title before exporting." };
+    }
+    return { valid: true };
+  }
+
+  /* ============================================================
      EXPORT — PDF
      ============================================================ */
 
   function exportPDF() {
     if (!validateForm()) {
-      alert("Please fix the highlighted fields before exporting.");
+      showToast("Please fix the highlighted fields before exporting.", "error");
       els.form.querySelector(".invalid")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+
+    var check = validateExportTemplate();
+    if (!check.valid) {
+      showToast(check.message, "error");
+      return;
+    }
+
+    if (typeof html2pdf === "undefined") {
+      showToast("PDF library failed to load. Check your internet connection.", "error");
+      return;
+    }
+
+    showToast("Generating PDF…", "info");
+
     var d = getPersonal();
     var fileName = (d.fullName || "resume").replace(/\s+/g, "_") + ".pdf";
 
@@ -431,13 +490,19 @@
       margin:      [10, 10, 10, 10],
       filename:    fileName,
       image:       { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
       jsPDF:       { unit: "mm", format: "letter", orientation: "portrait" },
     };
 
     html2pdf().set(opt).from(clone).save()
-      .then(function () { document.body.removeChild(clone); })
-      .catch(function (err) { document.body.removeChild(clone); throw err; });
+      .then(function () {
+        document.body.removeChild(clone);
+        showToast("PDF exported: " + fileName, "success");
+      })
+      .catch(function (err) {
+        document.body.removeChild(clone);
+        showToast("PDF export failed: " + (err && err.message ? err.message : "Unknown error"), "error");
+      });
   }
 
   /* ============================================================
