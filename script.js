@@ -420,6 +420,13 @@
     var d = getPersonal();
     var fileName = (d.fullName || "resume").replace(/\s+/g, "_") + ".pdf";
 
+    // Clone the preview so html2canvas can compute styles, layout, and CSS
+    // custom properties. The clone must be attached to the DOM (off-screen)
+    // because html2canvas cannot resolve computed styles for detached nodes.
+    var clone = els.preview.cloneNode(true);
+    clone.classList.add("rp-export-clone");
+    document.body.appendChild(clone);
+
     var opt = {
       margin:      [10, 10, 10, 10],
       filename:    fileName,
@@ -428,7 +435,9 @@
       jsPDF:       { unit: "mm", format: "letter", orientation: "portrait" },
     };
 
-    html2pdf().set(opt).from(els.preview).save();
+    html2pdf().set(opt).from(clone).save()
+      .then(function () { document.body.removeChild(clone); })
+      .catch(function (err) { document.body.removeChild(clone); throw err; });
   }
 
   /* ============================================================
