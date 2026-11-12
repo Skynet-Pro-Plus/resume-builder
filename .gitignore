@@ -1,0 +1,3 @@
+# Local AI-agent logs and saved conversations
+/.claw/*.log
+/.claw/sessions/
